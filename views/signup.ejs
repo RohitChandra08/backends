@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style1.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="card">
+        <h2>Create Account</h2>
+        <p>Join Drive to store your files</p>
+    </div>
+    
+    <form  action="/api/user/admin/signup" method="post">
+        <div class="field">
+        <label for="">Username</label>
+       <i class="ri-user-line"></i>
+        <input type="text" name="name" placeholder="Choose a Username"  required>
+        
+        </div>
+
+          <div class="field">
+        <label for="">Email</label>
+        <i class="ri-mail-line"></i>
+        <input type="email" name="email" placeholder="Enter your email"  required>
+        
+        </div>
+
+         <div class="field">
+        <label for="">Password</label>
+        <i class="ri-lock-2-line"></i>
+        <input type="password" name="password" placeholder="Create a password"  required>
+        
+        </div>
+        <button><i class="ri-user-add-line"></i>Create Account</button>
+    </form>
+
+    <div class="footer">Already have an account?<a href="/login">Sign in</a></div>
+
+</body>
+</html>

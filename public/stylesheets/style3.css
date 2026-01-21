@@ -1,0 +1,207 @@
+body{
+     background: #0f0f0f;
+     font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+}
+
+.drive{
+    padding: 20px;
+}
+
+.top{
+    background: #1d273d;
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button{
+    background-color: #00ffe0;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.top span{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 25px;
+    color:  #00ffe0;
+}
+
+.top button{
+     display: inline-flex;
+    align-items: center;
+    gap: 8px;
+     font-size: 15px;
+     pointer-events: auto;
+     position: relative;
+     z-index: 30;
+}
+
+/* ===== Upload Modal Overlay ===== */
+.upload-modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.upload-modal.active{
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+/* ===== Upload Box ===== */
+.upload-box{
+    background: linear-gradient(145deg, #0f172a, #020617);
+    padding: 25px;
+    border-radius: 16px;
+    width: 400px;
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(0, 255, 224, 0.15);
+    animation: scaleIn 0.3s ease;
+}
+
+/* ===== Drop Area ===== */
+.drop-area{
+    border: 2px dashed #00ffe0;
+    padding: 35px 20px;
+    text-align: center;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.drop-area:hover{
+    background: rgba(0, 255, 224, 0.05);
+    transform: scale(1.02);
+}
+
+.drop-area i{
+    font-size: 40px;
+    color: #00ffe0;
+}
+
+.drop-area p{
+    margin: 12px 0 4px;
+    font-size: 15px;
+}
+
+.drop-area small{
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+/* ===== Modal Buttons ===== */
+.modal-actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.upload-btn{
+    background: #00ffe0;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upload-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 255, 224, 0.4);
+}
+
+.close-btn{
+    background: transparent;
+    color: #94a3b8;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover{
+    color: #fff;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+}
+
+@keyframes scaleIn{
+    from{
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.file-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px;
+}
+
+.file-box {
+  width: 150px;
+  height: 100px;
+  background:  #1d273d;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.file-box:hover {
+  transform: translateY(-3px);
+}
+.file-icon i {
+  font-size: 36px;
+  color: #4A90E2;
+}
+.file-name {
+  font-size: 14px;
+  text-align: center;
+  word-break: break-word;
+  margin-top: 8px;
+}
+.file-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 8px;
+}
+.file-actions i {
+  font-size: 18px;
+  color: #e20000;
+  cursor: pointer;
+}
+.file-actions a {
+  color: #555555;
+}

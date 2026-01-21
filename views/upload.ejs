@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drive Upload</title>
+  <link rel="stylesheet" href="/stylesheets/style3.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+  <div class="drive">
+    <div class="top">
+      <span><i class="ri-cloud-line"></i>Drive</span>
+      <button id="openUpload"><i class="ri-upload-cloud-line"></i>Upload File</button>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="upload-modal" id="uploadModal">
+    <div class="upload-box">
+      <div class="drop-area" id="dropArea">
+        <i class="ri-upload-cloud-line"></i>
+        <p>Click to upload or drag and drop</p>
+        <input type="file" id="fileInput" multiple hidden>
+        <div class="modal-actions">
+          <button class="upload-btn" id="uploadBtn">Upload File</button>
+          <button class="close-btn" id="closeUpload">X</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Grid -->
+  <div class="file-grid" id="fileGrid"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const openBtn = document.getElementById("openUpload");
+      const modal = document.getElementById("uploadModal");
+      const closeBtn = document.getElementById("closeUpload");
+      const fileInput = document.getElementById("fileInput");
+      const uploadBtn = document.getElementById("uploadBtn");
+      const fileGrid = document.getElementById("fileGrid");
+      const dropArea = document.getElementById("dropArea");
+
+      // Open/Close modal
+      openBtn.onclick = () => modal.classList.add("active");
+      closeBtn.onclick = () => modal.classList.remove("active");
+      modal.onclick = e => { if (e.target === modal) modal.classList.remove("active"); };
+      dropArea.onclick = () => fileInput.click();
+
+      // Load files
+      const loadFiles = async () => {
+        const res = await fetch("/api/user/files");
+        const data = await res.json();
+        fileGrid.innerHTML = "";
+        if (!data.success) return;
+
+        data.files.forEach(file => {
+          const box = document.createElement("div");
+          box.classList.add("file-box");
+          box.innerHTML = `
+            <div class="file-icon"><i class="ri-file-cloud-line"></i></div>
+            <div class="file-name">${file.originalName}</div>
+            <div class="file-actions">
+              <a href="${file.path}" download><i class="ri-arrow-down-line"></i></a>
+              <i class="ri-delete-bin-6-line"></i>
+            </div>
+          `;
+          box.querySelector(".ri-delete-bin-6-line").onclick = async () => {
+            await fetch(`/api/user/files/${file._id}`, { method: "DELETE" });
+            loadFiles();
+          };
+          fileGrid.appendChild(box);
+        });
+      };
+
+      loadFiles();
+
+      // Upload files
+      uploadBtn.onclick = async () => {
+        if (!fileInput.files.length) return alert("Select at least 1 file");
+
+        const formData = new FormData();
+        for (const file of fileInput.files) formData.append("files", file);
+
+        const res = await fetch("/api/user/upload", { method: "POST", body: formData });
+        const data = await res.json();
+        if (data.success) {
+          loadFiles();
+          fileInput.value = "";
+          modal.classList.remove("active");
+        } else {
+          alert("Upload failed");
+        }
+      };
+    });
+  </script>
+</body>
+</html>
