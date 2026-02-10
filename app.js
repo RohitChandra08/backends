@@ -1,7 +1,9 @@
 const express = require("express");
 const path = require("path");
+const session = require("express-session");
 const connectdb = require("./config/db");
 const authRouter = require("./router/auth.router");
+const authMiddleware = require("./middleware/auth.middleware");
 
 const app = express();
 connectdb();
@@ -9,6 +11,16 @@ connectdb();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// --- SESSION SETUP ---
+app.use(
+  session({
+    secret: "your_secret_key", // CHANGE THIS in production
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
+  })
+);
 
 // EJS setup
 app.set("view engine", "ejs");
@@ -21,12 +33,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Page routes
 app.get("/signup", (req, res) => res.render("signup"));
 app.get("/login", (req, res) => res.render("login"));
-app.get("/upload", (req, res) => res.render("upload"));
+app.get("/upload", authMiddleware, (req, res) => res.render("upload"));
 
 // API routes
 app.use("/api/user", authRouter);
 
 // Start server
-app.listen(8000, () => {
-  console.log("Server running on port 8000");
-});
+const PORT = 8000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -6,7 +6,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheets/style1.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
 </head>
 <body>
     <div class="card">
@@ -14,31 +13,61 @@
         <p>Join Drive to store your files</p>
     </div>
     
-    <form  action="/api/user/admin/signup" method="post">
+    <form action="/api/user/admin/signup" method="post">
         <div class="field">
-        <label for="">Username</label>
-       <i class="ri-user-line"></i>
-        <input type="text" name="name" placeholder="Choose a Username"  required>
-        
+            <label>Username</label>
+            <i class="ri-user-line left-icon"></i>
+            <input type="text" name="name" placeholder="Choose a Username" required>
         </div>
 
-          <div class="field">
-        <label for="">Email</label>
-        <i class="ri-mail-line"></i>
-        <input type="email" name="email" placeholder="Enter your email"  required>
-        
+        <div class="field">
+            <label>Email</label>
+            <i class="ri-mail-line left-icon"></i>
+            <input type="email" name="email" placeholder="Enter your email" required>
         </div>
 
-         <div class="field">
-        <label for="">Password</label>
-        <i class="ri-lock-2-line"></i>
-        <input type="password" name="password" placeholder="Create a password"  required>
-        
+        <div class="field">
+            <label>Password</label>
+            <!-- LEFT LOCK ICON -->
+            <i class="ri-lock-2-line left-icon"></i>
+
+            <!-- PASSWORD INPUT -->
+            <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Create a password"
+                required
+            >
+
+            <!-- RIGHT EYE ICON -->
+            <i
+                class="ri-eye-off-line right-icon"
+                id="togglePassword"
+                onclick="togglePassword()"
+            ></i>
         </div>
+
         <button><i class="ri-user-add-line"></i>Create Account</button>
     </form>
 
-    <div class="footer">Already have an account?<a href="/login">Sign in</a></div>
+    <div class="footer">
+        Already have an account?<a href="/login">Sign in</a>
+    </div>
 
+    <script>
+        function togglePassword() {
+            const pwd = document.getElementById("password");
+            const eye = document.getElementById("togglePassword");
+
+            if (pwd.type === "password") {
+                pwd.type = "text";
+                eye.className = "ri-eye-line right-icon";
+            } else {
+                pwd.type = "password";
+                eye.className = "ri-eye-off-line right-icon";
+            }
+        }
+    </script>
 </body>
 </html>
