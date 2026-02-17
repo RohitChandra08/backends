@@ -30,9 +30,9 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.get("/",(req,res)=>{
-    res.send("Backend is running successfully on render !")
-})
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully on Railway!");
+});
 
 // Page routes
 app.get("/signup", (req, res) => res.render("signup"));
@@ -42,6 +42,6 @@ app.get("/upload", authMiddleware, (req, res) => res.render("upload"));
 // API routes
 app.use("/api/user", authRouter);
 
-// Start server
-const PORT = 8000;
+// ✅ FIXED PORT FOR RAILWAY
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
