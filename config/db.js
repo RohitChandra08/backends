@@ -1,16 +1,14 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
 
-const connectdb=()=>{
+const connectdb = () => {
     mongoose
-    .connect("mongodb://127.0.0.1:27017/drivedb")
-       
-    .then(()=>{
-        console.log("mongoose is ready")
-    })
+        .connect(process.env.MONGO_URI)
+        .then(() => {
+            console.log("MongoDB Connected Successfully");
+        })
+        .catch((err) => {
+            console.log("MongoDB Connection Error:", err.message);
+        });
+};
 
-    .catch((err)=>{
-        console.log(err.message)
-    })
-}
-
-module.exports=connectdb
+module.exports = connectdb;
