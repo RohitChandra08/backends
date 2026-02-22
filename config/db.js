@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 
+// Function to connect to local MongoDB Compass
 const connectdb = () => {
   mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected Successfully"))
-    .catch((err) => console.log("MongoDB Connection Error:", err.message));
+    .connect("mongodb://127.0.0.1:27017/drivedb")
+    .then(() =>
+       console.log("MongoDB Connected Successfully (Local Compass)"))
+     .catch((err) => 
+      console.log("MongoDB Connection Error:", err));
 };
 
 module.exports = connectdb;
